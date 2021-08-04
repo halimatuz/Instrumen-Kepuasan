@@ -1,0 +1,109 @@
+<div class="wrapper" *ngFor="let d of detail">
+  <div *ngIf="id=== d.kriteria" >
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/fabio-mangione.jpg');">
+        <div class="filter"></div>
+    </div>
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                    <img src="{{d.image}}" class="img-thumbnail img-responsive" alt="Rounded Image">
+                    
+                    <!-- <img src="./assets/img/icon_1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"> -->
+                </div>
+            </div>
+            <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Data Sedang Disimpan... </p></ngx-spinner>
+            <form class="container" [formGroup]="QForm" (ngSubmit)="submitQData()">
+            <div class="row">
+                <div class="col-md-5">
+                    <h5>{{d.title}}</h5>
+                    <ul style="text-align: justify;" *ngFor="let req of d.requirement" >
+                        <li>{{req}}</li>
+                    </ul>
+                        <div class="form-group row">
+                          <label for="inputNama" class="col-sm-2 col-form-label">Nama</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNama" formControlName="nama" placeholder="Nama">
+                            <div  *ngIf="QForm.controls['nama'].invalid && (QForm.controls['nama'].dirty || QForm.controls['nama'].touched)" class="alert alert-danger">
+                              <div *ngIf="QForm.controls['nama'].errors.required">
+                              Name is required.
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Fakultas</label>
+                          <div class="col-sm-10">
+                            <select class="custom-select my-1 mr-sm-2" placeholder="Fakultas" (change)="changeCountry($event.target.value)" formControlName="fakultas" id="inlineFormCustomSelectPref" required>
+                                
+                                <option  *ngFor ="let prog of programList" value="{{prog.idF}}">{{prog.faculty}}</option>
+                              </select>
+                              <div  *ngIf="QForm.controls['fakultas'].invalid && (QForm.controls['fakultas'].dirty || QForm.controls['fakultas'].touched)" class="alert alert-danger">
+                                <div *ngIf="QForm.controls['fakultas'].errors.required">
+                                Fakultas is required.
+                                </div>
+                              </div>
+                          </div>
+                        </div><div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-2 col-form-label">Program Studi</label>
+                            <div class="col-sm-10">
+                              <select class="custom-select my-1 mr-sm-2" formControlName="prodi" id="inlineFormCustomSelectPref" required> 
+                                  
+                                  <option *ngFor ="let city of cities,index as l" value="{{isProd[l]}}">{{city}}</option>
+                                </select>
+                                <div  *ngIf="QForm.controls['prodi'].invalid && (QForm.controls['prodi'].dirty || QForm.controls['prodi'].touched)" class="alert alert-danger">
+                                  <div *ngIf="QForm.controls['prodi'].errors.required">
+                                  Prodi is required.
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        
+                      
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-6" > 
+                            
+                    <div class="form-group row"   *ngFor="let q of quest;index as i" >
+                      <div *ngIf="id== q.kriteria && q.user.includes(user)" >
+                        
+                        <p  style="padding-top: 10px;">{{i+1}}. {{q.question}}</p>
+                        
+                            <div *ngFor="let o of q.option; index as n" >
+                              <div class="custom-control custom-radio"  >
+                                <input [(ngModel)]="obtained[i]" [ngModelOptions]="{standalone: true}"  type="radio" value="{{n}}"  name="radio{{i}}" 
+                                class="custom-control-input" id="customControlValidation{{i}}_{{n}}" required>
+                                <label class="custom-control-label" for="customControlValidation{{i}}_{{n}}">{{o}}</label>
+                              </div> 
+                              
+                            </div>
+                            <div  *ngIf="obtained[i]=='x'" class="alert alert-danger">
+                              Please answer fall the question!
+                           </div>
+                          </div>
+                           
+                    </div>
+                        <div class="form-group row" style="padding: 10px;">
+                          <div class="col-sm-10">
+                            <div  *ngIf="QForm.pristine || QForm.invalid" class="alert alert-danger">
+                              <div *ngIf="QForm.pristine || QForm.invalid">
+                              Please fill out all details !
+                              </div>
+                            </div>
+                            <button  type="submit" [disabled]="QForm.pristine || QForm.invalid || obtained.includes('x')"  class="btn btn-secondary btn-lg btn-block ">Submit</button>
+                          </div>
+                        </div>
+                </div>
+            </div>
+        </form>
+   
+
+        </div>
+    </div>
+ 
+  </div>
+
+
+  
+
+</div>
