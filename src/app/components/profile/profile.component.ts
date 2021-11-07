@@ -7,7 +7,7 @@ import { FakultasService } from '../../services/fakultas/fakultas.service';
 import { Fakultas } from '../../services/fakultas/fakultas.model';
 import { ProdiService } from '../../services/prodi/prodi.service';
 import { Prodi } from '../../services/prodi/prodi.model';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray, FormControlDirective } from '@angular/forms'; // Reactive form services
 import { ToastrService } from 'ngx-toastr'; // Alert message using NGX toastr
 import { AnswerService } from '../../services/answer/answer.service';    // CRUD services API
@@ -42,7 +42,8 @@ export class ProfileComponent implements OnInit {
                private spinner: NgxSpinnerService,
               public crud : AnswerService,
               public fb: FormBuilder,       
-              public toastr: ToastrService  ) { 
+              public toastr: ToastrService,
+                ) { 
       this.Q_Form();
       
     }
@@ -160,10 +161,11 @@ export class ProfileComponent implements OnInit {
       this.crud.createPolicy(x);
       this.toastr.success(' successfully added!'); // Show success message when data is successfully submited
       
-     
-      
-      window.setTimeout(function () {
-        location.href = "/";
+     //this._router.navigate(['/home'])
+     setTimeout(() => {
+      console.log('sleep');
+      this._router.navigate(['/home']);
+      // And any other code that should run only after 5s
     }, 5000);
      }
   cities: Array<any>;
