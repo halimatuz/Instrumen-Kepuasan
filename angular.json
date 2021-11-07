@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "pk2-angular": {
-      "root": "",
+      "root": "https://halimatuz.github.io/Instrumen-Kepuasan/",
       "sourceRoot": "src",
       "projectType": "application",
       "architect": {
